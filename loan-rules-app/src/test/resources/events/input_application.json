@@ -1,0 +1,1 @@
+{"specversion":"1.0","id":"a89b61a2-5644-487a-8a86-144855c5dce8","source":"Terminal-kcat","type":"DecisionRequest","kogitodmnmodelname":"LoanApplicationRules","kogitodmnmodelnamespace":"https://kiegroup.org/dmn/_7475440E-E83E-49C0-A7C8-B30A30A195ED","data":{"LoanApplication":{"applicationId":"A100","amount":1000}}}

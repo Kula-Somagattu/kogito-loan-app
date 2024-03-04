@@ -1,0 +1,1 @@
+{"specversion":"1.0","id":"a89b61a2-5644-487a-8a86-144855c5dce8","source":"Terminal-kcat","type":"DecisionRequest","kogitodmnmodelname":"LoanApplicantRules","kogitodmnmodelnamespace":"https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B","data":{"LoanApplicant":{"id":"A100","name":"Kula","age":50,"creditScore":800}}}

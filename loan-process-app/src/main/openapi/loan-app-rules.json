@@ -1,0 +1,143 @@
+{
+  "openapi" : "3.0.3",
+  "info" : {
+    "title" : "loan-rules-app API",
+    "version" : "1.0.0-SNAPSHOT"
+  },
+  "paths" : {
+    "/LoanApplicantRules" : {
+      "get" : {
+        "tags" : [ "Loan Applicant Rules Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Loan Applicant Rules Resource" ],
+        "requestBody" : {
+          "description" : "DMN input",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "/dmnDefinitions.json#/definitions/InputSetLoanApplicantRules"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "DMN output",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "/dmnDefinitions.json#/definitions/OutputSetLoanApplicantRules"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/LoanApplicantRules/dmnresult" : {
+      "post" : {
+        "tags" : [ "Loan Applicant Rules Resource" ],
+        "requestBody" : {
+          "description" : "DMN input",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "/dmnDefinitions.json#/definitions/InputSetLoanApplicantRules"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/LoanApplicationRules" : {
+      "get" : {
+        "tags" : [ "Loan Application Rules Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/xml" : {
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Loan Application Rules Resource" ],
+        "requestBody" : {
+          "description" : "DMN input",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "/dmnDefinitions.json#/definitions/InputSetLoanApplicationRules"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "DMN output",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "/dmnDefinitions.json#/definitions/OutputSetLoanApplicationRules"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/LoanApplicationRules/dmnresult" : {
+      "post" : {
+        "tags" : [ "Loan Application Rules Resource" ],
+        "requestBody" : {
+          "description" : "DMN input",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "/dmnDefinitions.json#/definitions/InputSetLoanApplicationRules"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    },
+    "/messaging/topics" : {
+      "get" : {
+        "tags" : [ "Quarkus Topics Information Resource" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "specversion": "1.0",
+    "id": "d2d35025-eaec-47c9-bc19-4b669882f5cc",
+    "source": "LoanApplicantRules",
+    "type": "DecisionResponse",
+    "time": "2024-02-29T08:50:32.302487-06:00",
+    "kogitodmnmodelnamespace": "https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B",
+    "kogitodmnmodelname": "LoanApplicantRules",
+    "data": {
+        "LoanApplicant": {
+            "creditScore": 800,
+            "name": "Kula",
+            "id": "A100",
+            "age": 50
+        },
+        "ApplicantStatus": {
+            "reason": "Congratulations",
+            "status": "approved"
+        }
+    }
+}

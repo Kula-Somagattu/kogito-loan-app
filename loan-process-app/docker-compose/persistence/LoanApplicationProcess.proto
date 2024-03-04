@@ -1,0 +1,42 @@
+syntax = "proto2"; 
+package org.acme.kogito.process.LoanApplicationProcess; 
+import "kogito-index.proto";
+import "kogito-types.proto";
+option kogito_model = "LoanApplicationProcess";
+option kogito_id = "LoanApplicationProcess";
+
+/* @Indexed */ 
+message Applicant { 
+	option java_package = "org.acme.kogito.model";
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional int32 age = 1; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional int32 creditScore = 2; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string name = 3; 
+}
+/* @Indexed */ 
+message LoanApplication { 
+	option java_package = "org.acme.kogito.model";
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional Applicant applicant = 1; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional int32 applicationNumber = 2; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional bool approved = 3; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional double loanAmount = 4; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	repeated string reasons = 5; 
+}
+/* @Indexed */ 
+message LoanApplicationProcess { 
+	option java_package = "org.acme.kogito.process";
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField
+ @VariableInfo(tags="") */ 
+	optional LoanApplication application = 1; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional string id = 2; 
+	/* @Field(index = Index.YES, store = Store.YES) @SortableField */ 
+	optional org.kie.kogito.index.model.KogitoMetadata metadata = 3; 
+}

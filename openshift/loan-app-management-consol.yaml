@@ -1,0 +1,34 @@
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: management-console
+spec:
+  serviceType: MgmtConsole
+  replicas: 1
+  image: quay.io/kiegroup/kogito-management-console
+  # we use environment variables to set the external data index URL
+  # this is needed for now since Management Console is a client application, we are working on having a local proxy to
+  # use the Kubernetes service instead
+  env:
+    - name: KOGITO_DATAINDEX_HTTP_URL
+      value: http://data-index.kogito
+    - name: KOGITO_DATAINDEX_WS_URL
+      value: ws://data-index.kogito
+---
+# Ref.: https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/#create-an-ingress-resource
+# don't forget to edit your /etc/hosts file!!
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mgtm-console-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: mgmt-console.kogito
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: management-console
+              servicePort: 8080

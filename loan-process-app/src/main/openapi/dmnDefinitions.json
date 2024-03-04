@@ -1,0 +1,122 @@
+{
+    "definitions": {
+        "InputSetLoanApplicantRules": {
+            "required": [
+                "LoanApplicant"
+            ],
+            "type": "object",
+            "properties": {
+                "LoanApplicant": {
+                    "$ref": "#/definitions/Applicant"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B : InputSetLoanApplicantRules }",
+            "x-dmn-descriptions": {}
+        },
+        "ApplicantStatus__status": {
+            "enum": [
+                "approved",
+                "pending",
+                "rejected"
+            ],
+            "type": "string",
+            "x-dmn-type": "FEEL:string",
+            "x-dmn-allowed-values": "\"approved\", \"pending\", \"rejected\""
+        },
+        "InputSetLoanApplicationRules": {
+            "required": [
+                "LoanApplication"
+            ],
+            "type": "object",
+            "properties": {
+                "LoanApplication": {
+                    "$ref": "#/definitions/LoanApplication"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_7475440E-E83E-49C0-A7C8-B30A30A195ED : InputSetLoanApplicationRules }",
+            "x-dmn-descriptions": {}
+        },
+        "Applicant": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "x-dmn-type": "FEEL:string"
+                },
+                "name": {
+                    "type": "string",
+                    "x-dmn-type": "FEEL:string"
+                },
+                "age": {
+                    "type": "number",
+                    "x-dmn-type": "FEEL:number"
+                },
+                "creditScore": {
+                    "type": "number",
+                    "x-dmn-type": "FEEL:number"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B : Applicant }"
+        },
+        "OutputSetLoanApplicationRules": {
+            "type": "object",
+            "properties": {
+                "isValidApplication": {
+                    "type": "boolean",
+                    "x-dmn-type": "FEEL:boolean"
+                },
+                "LoanApplication": {
+                    "$ref": "#/definitions/LoanApplication"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_7475440E-E83E-49C0-A7C8-B30A30A195ED : OutputSetLoanApplicationRules }",
+            "x-dmn-descriptions": {}
+        },
+        "ApplicantStatus": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "$ref": "#/definitions/ApplicantStatus__status"
+                },
+                "reason": {
+                    "type": "string",
+                    "x-dmn-type": "FEEL:string"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B : ApplicantStatus }"
+        },
+        "OutputSetLoanApplicantRules": {
+            "type": "object",
+            "properties": {
+                "ApplicantStatus": {
+                    "$ref": "#/definitions/ApplicantStatus"
+                },
+                "LoanApplicant": {
+                    "$ref": "#/definitions/Applicant"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_C8B3A68E-6C76-49F2-9608-178B7F30669B : OutputSetLoanApplicantRules }",
+            "x-dmn-descriptions": {}
+        },
+        "LoanApplication__applicationId": {
+            "x-dmn-type": "FEEL:Any"
+        },
+        "LoanApplication": {
+            "type": "object",
+            "properties": {
+                "applicationId": {
+                    "$ref": "#/definitions/LoanApplication__applicationId"
+                },
+                "amount": {
+                    "type": "number",
+                    "x-dmn-type": "FEEL:number"
+                },
+                "isAmountValid": {
+                    "type": "boolean",
+                    "x-dmn-type": "FEEL:boolean"
+                }
+            },
+            "x-dmn-type": "DMNType{ https://kiegroup.org/dmn/_7475440E-E83E-49C0-A7C8-B30A30A195ED : LoanApplication }"
+        }
+    }
+}

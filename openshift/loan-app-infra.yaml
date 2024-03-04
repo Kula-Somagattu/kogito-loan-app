@@ -1,0 +1,27 @@
+# Strimzi operator should be pre-installed in namespace
+# And have installed a Kafka cluster named "kogito-kafka" in the same namespace of the Kogito resources
+# Follow these instructions to setup the Kafka cluster:
+# https://strimzi.io/docs/operators/latest/quickstart.html
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoInfra
+metadata:
+  name: kogito-kafka-infra
+spec:
+  resource:
+    apiVersion: kafka.strimzi.io/v1beta2
+    kind: Kafka
+    name: kogito-kafka
+---
+# Infinispan operator should be pre-installed in namespace
+# And have installed an Infinispan server named "kogito-infinispan" in the same namespace of the Kogito resources
+# Follow these instructions to setup the Infinispan server:
+# https://infinispan.org/docs/infinispan-operator/main/operator.html
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoInfra
+metadata:
+  name: kogito-infinispan-infra
+spec:
+  resource:
+    apiVersion: infinispan.org/v1
+    kind: Infinispan
+    name: kogito-infinispan
