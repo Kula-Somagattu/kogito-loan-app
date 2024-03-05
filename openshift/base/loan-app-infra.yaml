@@ -1,0 +1,78 @@
+# Strimzi operator should be pre-installed in namespace
+# And have installed a Kafka cluster named "kogito-kafka" in the same namespace of the Kogito resources
+# Follow these instructions to setup the Kafka cluster:
+# https://strimzi.io/docs/operators/latest/quickstart.html
+apiVersion: rhpam.kiegroup.org/v1
+kind: KogitoInfra
+metadata:
+  name: kogito-kafka-infra
+  namespace: loan-project
+spec:
+  resource:
+    apiVersion: kafka.strimzi.io/v1beta2
+    name: kogito-kafka
+    kind: Kafka
+---
+# Infinispan operator should be pre-installed in namespace
+# And have installed an Infinispan server named "kogito-infinispan" in the same namespace of the Kogito resources
+# Follow these instructions to setup the Infinispan server:
+# https://infinispan.org/docs/infinispan-operator/main/operator.html
+apiVersion: rhpam.kiegroup.org/v1
+kind: KogitoInfra
+metadata:
+  name: kogito-infinispan-infra
+spec:
+  resource:
+    apiVersion: infinispan.org/v1
+    kind: Infinispan
+    name: kogito-infinispan
+---
+# Infinispan operator should be pre-installed in namespace
+# And have installed an Infinispan server named "kogito-infinispan" in the same namespace of the Kogito resources
+# Follow these instructions to setup the Infinispan server:
+# https://infinispan.org/docs/infinispan-operator/main/operator.html
+apiVersion: rhpam.kiegroup.org/v1
+kind: KogitoSupportingService
+metadata:
+  name: kogito-data-index
+  namespace: loan-project
+spec:
+  infra:
+    - kogito-kafka-infra
+    - kogito-infinispan-infra
+  replicas: 3
+  serviceType: DataIndex
+---
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: management-console
+spec:
+  serviceType: MgmtConsole
+  replicas: 3
+  image: quay.io/kiegroup/kogito-management-console
+  propertiesConfigMap: data-index-properties
+  # we use environment variables to set the external data index URL
+  # this is needed for now since Management Console is a client application, we are working on having a local proxy to
+  # use the Kubernetes service instead
+  # env:
+  #   - name: KOGITO_DATAINDEX_HTTP_URL
+  #     value: http://data-index.kogito
+  #   - name: KOGITO_DATAINDEX_WS_URL
+  #     value: ws://data-index.kogito
+---
+apiVersion: app.kiegroup.org/v1beta1
+kind: KogitoSupportingService
+metadata:
+  name: task-console
+spec:
+  serviceType: TaskConsole
+  replicas: 1
+  image: quay.io/kiegroup/kogito-task-console
+  propertiesConfigMap: data-index-properties
+  # we use environment variables to set the external data index URL
+  # this is needed for now since Task Console is a client application, we are working on having a local proxy to
+  # use the Kubernetes service instead
+  # env:
+  #   - name: KOGITO_DATAINDEX_HTTP_URL
+  #     value: http://data-index.kogito

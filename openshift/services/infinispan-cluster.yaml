@@ -1,0 +1,7 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: kogito-infinispan
+  namespace: loan-project
+spec:
+  replicas: 3
