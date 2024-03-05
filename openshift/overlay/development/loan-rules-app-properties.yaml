@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+data:
+  loan-rules-application.properties: quarkus.swagger-ui.always-include=true
+metadata:
+  name: loan-rules-app-properties
+  namespace: loan-project
+  

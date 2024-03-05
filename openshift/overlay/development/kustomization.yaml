@@ -13,13 +13,13 @@ configMapGenerator:
   - loan-process-application.properties
   options:
     disableNameSuffixHash: true
-- name: data-index-properties
-  files:
-  - data-index.properties
-  options:
-    disableNameSuffixHash: true
+# - name: data-index-properties
+#   files:
+#   - data-index.properties
+#   options:
+#     disableNameSuffixHash: true
 
-resources:
-- ../../base
+# resources:
+# - ../../base
 
 
