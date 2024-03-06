@@ -1,25 +1,93 @@
-apiVersion: rhpam.kiegroup.org/v1
-kind: KogitoBuild
-metadata:
-  name: loan-rules-app
-  namespace: loan-project
-spec:
-  gitSource:
-    contextDir: loan-rules-app
-    uri: 'https://github.com/Kula-Somagattu/kogito-loan-app.git'
-  type: RemoteSource
-  runtime: quarkus
 ---
-apiVersion: rhpam.kiegroup.org/v1
-kind: KogitoRuntime
+apiVersion: v1
+kind: Service
 metadata:
+  labels:
+    app.kubernetes.io/name: loan-rules-app
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
   name: loan-rules-app
-  namespace: loan-project
 spec:
-  replicas: 3
-  image: 'image-registry.openshift-image-registry.svc:5000/openshift/loan-rules-app:v1'
-  # env:
-  #   - name: KOGITO_DATAINDEX_HTTP_URL
-  #     value: http://data-index.kogito
-  #   - name: KOGITO_DATAINDEX_WS_URL
-  #     value: ws://data-index.kogito
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: loan-rules-app
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/name: loan-rules-app
+  name: loan-rules-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/version: 1.0.0-SNAPSHOT
+      app.kubernetes.io/name: loan-rules-app
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/version: 1.0.0-SNAPSHOT
+        app.kubernetes.io/name: loan-rules-app
+    spec:
+      containers:
+        - env:
+            - name: KUBERNETES_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          image: loan-rules-app
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/live
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: loan-rules-app
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /q/health/ready
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 10
+      serviceAccountName: loan-rules-app
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/name: loan-rules-app
+  name: loan-rules-app
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: loan-rules-app-view
+roleRef:
+  kind: ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+  name: view
+subjects:
+  - kind: ServiceAccount
+    name: loan-rules-app
+

@@ -1,35 +1,19 @@
-# Ref.: https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/#create-an-ingress-resource
-# don't forget to edit your /etc/hosts file!!
-apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
-kind: Ingress
-metadata:
-  name: data-index-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-spec:
-  rules:
-    - host: data-index.kogito
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: data-index
-              servicePort: 8080
 ---
-# Ref.: https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/#create-an-ingress-resource
-# don't forget to edit your /etc/hosts file!!
-apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: mgtm-console-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: loan-app-dev-ingress
+  namespace: loan-app-dev
 spec:
   rules:
-    - host: mgmt-console.kogito
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: management-console
-              servicePort: 8080
+  - host: loan-app-dev.65e5dba7a7df0d0011fcf595.cloud.techzone.ibm.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: loan-process-app
+            port:
+              number: 80
+  ingressClassName: nginx

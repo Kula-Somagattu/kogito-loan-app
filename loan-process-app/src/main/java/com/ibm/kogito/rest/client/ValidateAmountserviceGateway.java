@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @Path("/LoanApplicationRules")
-@RegisterRestClient
+@RegisterRestClient(configKey = "loan-rules-app")
 public interface ValidateAmountserviceGateway { 
 
    @POST

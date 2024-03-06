@@ -1,25 +1,36 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: loan-project
+namespace: loan-app-dev
 
-configMapGenerator:
-- name: loan-rules-app-properties
-  files:
-  - loan-rules-application.properties
-  options:
-    disableNameSuffixHash: true
-- name: loan-process-app-properties
-  files:
-  - loan-process-application.properties
-  options:
-    disableNameSuffixHash: true
+# configMapGenerator:
+# - name: loan-rules-app-properties
+#   files:
+#   - loan-rules-application.properties
+#   options:
+#     disableNameSuffixHash: true
+# - name: loan-process-app-properties
+#   files:
+#   - loan-process-application.properties
+#   options:
+#     disableNameSuffixHash: true
 # - name: data-index-properties
 #   files:
 #   - data-index.properties
 #   options:
 #     disableNameSuffixHash: true
 
-# resources:
-# - ../../base
+resources:
+- loan-rules-app-properties.yaml
+- loan-process-app-properties.yaml
+- ../../base
+
+images:
+- name: loan-rules-app
+  newName: image-registry.openshift-image-registry.svc:5000/loan-app-dev/loan-rules-app
+  newTag: jvm
+- name: loan-process-app
+  newName: image-registry.openshift-image-registry.svc:5000/loan-app-dev/loan-process-app
+  newTag: jvm3
+
 
 

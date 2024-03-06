@@ -16,17 +16,21 @@ import com.ibm.kogito.rest.client.LoanApplicationResponse;
 import com.ibm.kogito.rest.client.ValidateAmountserviceGateway;
 
 @ApplicationScoped
-public class ValidateLoanAmountService {
+public class ValidateLoanAmountService {    
 
     @Inject
-    Logger logger;
+    Logger logger;    
 
     @Inject
     @RestClient
     ValidateAmountserviceGateway validateAmountserviceGateway;
 
+    @Inject
+    InitializeLoanApplication initializeLoanApplication;
+
     public LoanApplicationStatus validateLoanAmount(LoanApplication loanApplication) {
 
+        initializeLoanApplication.initialize(loanApplication);
         Application application = new Application();
         application.setApplicationId(loanApplication.getApplicationId());
         application.setAmount(loanApplication.getLoanAmount());
