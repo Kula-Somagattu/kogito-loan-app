@@ -30,7 +30,7 @@ images:
   newTag: jvm
 - name: loan-process-app
   newName: image-registry.openshift-image-registry.svc:5000/loan-app-dev/loan-process-app
-  newTag: jvm3
+  newTag: persistance
 
 
 

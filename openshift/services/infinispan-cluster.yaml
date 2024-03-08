@@ -5,3 +5,13 @@ metadata:
   namespace: loan-project
 spec:
   replicas: 3
+  version: 14.0
+  service:
+    type: DataGrid
+  security:
+    endpointAuthentication: false
+    endpointEncryption:
+      certSecretName: kogito-infinispan-cert-secret
+      certServiceName: service.beta.openshift.io
+      clientCert: None
+      type: None

@@ -2,24 +2,39 @@ apiVersion: v1
 data:
   application.properties: |-
     quarkus.swagger-ui.always-include=true
+    quarkus.http.cors.origins=true
 
     quarkus.rest-client.loan-rules-app.url=http://loan-rules-app:80
     quarkus.rest-client.loan-rules-app.scope=javax.inject.Singleton
 
-    # mp.messaging.outgoing.kogito-processinstances-events.bootstrap.servers=localhost:9092
-    # mp.messaging.outgoing.kogito-processinstances-events.connector=smallrye-kafka
-    # mp.messaging.outgoing.kogito-processinstances-events.topic=kogito-processinstances-events
-    # mp.messaging.outgoing.kogito-processinstances-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+    # kogito.data-index.url=localhost:8180
+    # kogito.persistence.type=infinispan
+    # kogito.persistence.optimistic.lock=true
+
+    quarkus.infinispan-client.use-auth=true
+    quarkus.infinispan-client.hosts=kogito-infinispan
+    quarkus.infinispan-client.username=developer
+    quarkus.infinispan-client.password=VSepHYwjJWGsbevd
+    # quarkus.infinispan-client.auth-realm=
+   
+
+    kafka.bootstrap.servers=kogito-kafka-kafka-bootstrap:9092
+
+    # mp.messaging.outgoing.kogito-processinstances-events.bootstrap.servers=kogito-kafka-kafka-bootstrap:9092
+    mp.messaging.outgoing.kogito-processinstances-events.connector=smallrye-kafka
+    mp.messaging.outgoing.kogito-processinstances-events.topic=kogito-processinstances-events
+    mp.messaging.outgoing.kogito-processinstances-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
 
     # mp.messaging.outgoing.kogito-usertaskinstances-events.bootstrap.servers=localhost:9092
-    # mp.messaging.outgoing.kogito-usertaskinstances-events.connector=smallrye-kafka
-    # mp.messaging.outgoing.kogito-usertaskinstances-events.topic=kogito-usertaskinstances-events
-    # mp.messaging.outgoing.kogito-usertaskinstances-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+    mp.messaging.outgoing.kogito-usertaskinstances-events.connector=smallrye-kafka
+    mp.messaging.outgoing.kogito-usertaskinstances-events.topic=kogito-usertaskinstances-events
+    mp.messaging.outgoing.kogito-usertaskinstances-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
 
     # mp.messaging.outgoing.kogito-variables-events.bootstrap.servers=localhost:9092
-    # mp.messaging.outgoing.kogito-variables-events.connector=smallrye-kafka
-    # mp.messaging.outgoing.kogito-variables-events.topic=kogito-variables-events
-    # mp.messaging.outgoing.kogito-variables-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+    mp.messaging.outgoing.kogito-variables-events.connector=smallrye-kafka
+    mp.messaging.outgoing.kogito-variables-events.topic=kogito-variables-events
+    mp.messaging.outgoing.kogito-variables-events.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+
 kind: ConfigMap
 metadata:
   name: loan-process-app-properties
