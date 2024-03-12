@@ -7,10 +7,14 @@ data:
     quarkus.rest-client.loan-rules-app.url=http://loan-rules-app:80
     quarkus.rest-client.loan-rules-app.scope=javax.inject.Singleton
 
-    # kogito.data-index.url=localhost:data-index-infinispan:80
+    kogito.data-index.url=http://data-index-infinispan:80/graphiql/
+    kogito.service.url=http://loan-process-app:80
 
     quarkus.infinispan-client.use-auth=true
     quarkus.infinispan-client.hosts=kogito-infinispan:11222
+    # quarkus.infinispan-client.auth-realm=default
+    # quarkus.infinispan-client.sasl-mechanism=PLAIN
+    # quarkus.infinispan-client.client-intelligence=BASIC
     quarkus.infinispan-client.username=developer
     quarkus.infinispan-client.password=HxXLVUTxFhXiutPA
     

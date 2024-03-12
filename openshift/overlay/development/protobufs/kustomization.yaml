@@ -5,6 +5,6 @@ configMapGenerator:
 - name: protpbuf-config
   files:
   - LoanApplicationProcess.proto
-  - LoanApplicationProcessList.json
+  - list.json
   options:
     disableNameSuffixHash: true
