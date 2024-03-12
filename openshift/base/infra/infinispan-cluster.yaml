@@ -1,0 +1,17 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: kogito-infinispan
+  namespace: loan-app-dev
+spec:
+  security:
+    endpointEncryption:
+      type: None
+      clientCert: None
+    endpointAuthentication: true
+    endpointSecretName: kogito-infinispan-generated-secret
+  service:
+    container:
+      ephemeralStorage: true
+    type: DataGrid
+  replicas: 3

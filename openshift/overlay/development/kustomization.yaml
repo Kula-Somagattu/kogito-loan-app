@@ -2,26 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: loan-app-dev
 
-# configMapGenerator:
-# - name: loan-rules-app-properties
-#   files:
-#   - loan-rules-application.properties
-#   options:
-#     disableNameSuffixHash: true
-# - name: loan-process-app-properties
-#   files:
-#   - loan-process-application.properties
-#   options:
-#     disableNameSuffixHash: true
-# - name: data-index-properties
-#   files:
-#   - data-index.properties
-#   options:
-#     disableNameSuffixHash: true
-
 resources:
 - loan-rules-app-properties.yaml
 - loan-process-app-properties.yaml
+- data-index-service-properties.yaml
+- protobufs
 - ../../base
 
 images:

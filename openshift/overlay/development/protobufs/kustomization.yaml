@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+configMapGenerator:
+- name: protpbuf-config
+  files:
+  - LoanApplicationProcess.proto
+  - LoanApplicationProcessList.json
+  options:
+    disableNameSuffixHash: true

@@ -3,5 +3,7 @@ kind: Kustomization
 namespace: loan-app-dev
 
 resources:
+- kogito-infinispan-generated-secret.yaml
 - infinispan-cluster.yaml
-# - kafka-cluster.yaml
+- kafka-cluster.yaml
+- kafdrop-service.yaml

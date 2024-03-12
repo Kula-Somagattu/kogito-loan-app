@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  QUARKUS_INFINISPAN_CLIENT_USE_AUTH: "true"
+  # QUARKUS_INFINISPAN_CLIENT_AUTH_REALM: ""
+  QUARKUS_INFINISPAN_CLIENT_HOSTS: "kogito-infinispan:11222"
+  QUARKUS_INFINISPAN_CLIENT_USERNAME: "developer"
+  QUARKUS_INFINISPAN_CLIENT_PASSWORD: "HxXLVUTxFhXiutPA"
+  KAFKA_BOOTSTRAP_SERVERS: "kogito-kafka-kafka-bootstrap:9092"
+  QUARKUS_HTTP_CORS_ORIGINS: "/.*/"
+  KOGITO_DATA_INDEX_PROPS: "-Dkogito.protobuf.folder=/home/jboss/data/protobufs/ -Dkogito.protobuf.watch=true" 
+kind: ConfigMap
+metadata:
+  name: data-index-service-properties

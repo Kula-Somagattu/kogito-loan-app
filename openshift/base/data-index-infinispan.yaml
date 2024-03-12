@@ -1,11 +1,7 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  labels:
-    app.kubernetes.io/name: loan-process-app
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
-  name: loan-process-app
+  name: data-index-infinispan
 spec:
   ports:
     - name: http
@@ -13,37 +9,32 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app.kubernetes.io/name: loan-process-app
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
+    app.kubernetes.io/name: data-index-infinispan
   type: ClusterIP
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/name: loan-process-app
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
-  name: loan-process-app
+    app.kubernetes.io/name: "data-index-infinispan"
+  name: data-index-infinispan
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: loan-process-app
-      app.kubernetes.io/version: 1.0.0-SNAPSHOT
+      app.kubernetes.io/name: data-index-infinispan
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: loan-process-app
-        app.kubernetes.io/version: 1.0.0-SNAPSHOT
+        app.kubernetes.io/name: data-index-infinispan
     spec:
       containers:
-        - env:
-            - name: KUBERNETES_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-          image: loan-process-app
-          imagePullPolicy: Always
+        - name: data-index-infinispan
+          image: quay.io/kiegroup/kogito-data-index-infinispan
+          imagePullPolicy: Always          
+          envFrom:
+          - configMapRef:
+              name: data-index-service-properties
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -54,11 +45,10 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 10
-          name: loan-process-app
           ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
+          - containerPort: 8080
+            name: http
+            protocol: TCP
           readinessProbe:
             failureThreshold: 3
             httpGet:
@@ -69,26 +59,33 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 10
-      serviceAccountName: loan-process-app
+          volumeMounts:
+          - mountPath: /home/jboss/data/protobufs/
+            name: protobufs
+            readOnly: false           
+      serviceAccountName: data-index-infinispan
+      volumes:
+      - configMap:
+          defaultMode: 384
+          name: protpbuf-config
+          optional: false
+        name: protobufs
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  labels:
-    app.kubernetes.io/name: loan-process-app
-    app.kubernetes.io/version: 1.0.0-SNAPSHOT
-  name: loan-process-app
+  name: data-index-infinispan
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: loan-process-app-view
+  name: data-index-infinispan-view
 roleRef:
   kind: ClusterRole
   apiGroup: rbac.authorization.k8s.io
   name: view
 subjects:
   - kind: ServiceAccount
-    name: loan-process-app
+    name: data-index-infinispan
 
 

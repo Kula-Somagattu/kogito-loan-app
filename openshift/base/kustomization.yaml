@@ -4,4 +4,4 @@ kind: Kustomization
 resources:
 - loan-rules-app.yaml
 - loan-process-app.yaml
-# - loan-app-ingress.yaml
+- data-index-infinispan.yaml
